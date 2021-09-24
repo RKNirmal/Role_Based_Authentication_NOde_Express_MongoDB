@@ -7,7 +7,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Welcome</title>
+    <title>Home</title>
     <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -70,14 +70,6 @@
                     data-toggle="minimize">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <ul class="navbar-nav ml-lg-auto d-flex align-items-center flex-row">
-                    <li class="nav-item">
-                        <a class="nav-link profile-pic"><img class="rounded-circle" src="images/face.jpg" alt=""></a>
-                        <ul class="dropdown">
-                            <li><a href="./login.html">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
                 <button class="navbar-toggler navbar-toggler-right hidden-lg-up align-self-center" type="button"
                     data-toggle="offcanvas">
                     <span class="navbar-toggler-icon"></span>
@@ -91,7 +83,7 @@
                 <nav class="bg-white sidebar sidebar-fixed sidebar-offcanvas" id="sidebar">
                     <div class="user-info">
                         <img src="images/face.jpg" alt="">
-                        <p class="name"><%= candidateName %></p>
+                        <p class="name">Guest</p>
                         <p class="designation">User</p>
                     </div>
                     <ul class="nav ps ps--theme_default" data-ps-id="ed30bf2e-9c2a-4d97-1d93-cda44d31f874">
@@ -100,6 +92,14 @@
                                 <!-- <i class="fa fa-dashboard"></i> -->
                                 <img src="images/icons/1.png" alt="">
                                 <span class="menu-title">Welcome</span>
+                            </a>
+                            <a class="nav-link" href="./register.html">
+                                <img src="images/icons/9.png" alt="">
+                                <span class="menu-title">Register</span>
+                            </a>
+                            <a class="nav-link" href="./login.html">
+                                <img src="images/profile.jpg" alt="">
+                                <span class="menu-title">Login</span>
                             </a>
                         </li>
                         <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;">
@@ -113,10 +113,8 @@
                 <!-- SIDEBAR ENDS -->
 
                 <div class="content-wrapper">
-                    <h1 class="text-primary mb-4">Welcome <%= candidateName %> </h1>
-                    <div class="row">
-
-                    </div>
+                    <h1 class="text-primary mb-4">Welcome<br></h1>
+                    <h5>Kindly create a profile/Login to continue!!! </h5>
                 </div>
             </div>
         </div>

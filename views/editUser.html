@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Title Page-->
-    <title>Register</title>
+    <title>Edit</title>
 
     <!-- Icons font CSS-->
     <link href="fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all">
@@ -61,13 +61,22 @@
         <div class="wrapper wrapper--w790">
             <div class="card card-5">
                 <div class="card-heading">
-                    <h2 class="title">Fill up the details to Register</h2>
+                    <h2 class="title">Edit user details by filling below form</h2>
                 </div>
                 <div class="container-login100-form-btn">
                     <img src="images/img-01.png" alt="IMG">
                 </div>
                 <div class="card-body">
-                    <form id="form" onSubmit="return checkPassword(this)" action="/register" method="POST">
+                    <form id="form" onSubmit="return checkPassword(this)" action="/edit" method="POST">
+                        <div class="form-row">
+                            <div class="name">Username</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="email" name="name" id="change" value=""
+                                        readonly>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-row m-b-55">
                             <div class="name">Name</div>
                             <div class="value">
@@ -75,15 +84,15 @@
                                     <div class="col-2">
                                         <div class="input-group-desc">
                                             <input class="input--style-5" type="text" name="firstName"
-                                                oninvalid="this.setCustomValidity('Please enter First Name')"
-                                                oninput="setCustomValidity('')" placeholder required>
+                                                oninvalid="this.setCustomValidity('Please enter your First Name')"
+                                                oninput="setCustomValidity('')" required>
                                             <label class="label--desc">first name</label>
                                         </div>
                                     </div>
                                     <div class="col-2">
                                         <div class="input-group-desc">
                                             <input class="input--style-5" type="text" name="lastName"
-                                                oninvalid="this.setCustomValidity('Please enter Last Name')"
+                                                oninvalid="this.setCustomValidity('Please enter your Last Name')"
                                                 oninput="setCustomValidity('')" required>
                                             <label class="label--desc">last name</label>
                                         </div>
@@ -97,7 +106,7 @@
                                 <div class="input-group">
                                     <input class="input--style-5" type="email" name="email"
                                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                                        oninvalid="this.setCustomValidity('Please enter valid email')"
+                                        oninvalid="this.setCustomValidity('Please enter your Email ID')"
                                         oninput="setCustomValidity('')" required>
                                 </div>
                             </div>
@@ -107,7 +116,7 @@
                             <div class="value">
                                 <div class="input-group">
                                     <input class="input--style-5" type="text" name="address"
-                                        oninvalid="this.setCustomValidity('Please enter address')"
+                                        oninvalid="this.setCustomValidity('Please enter your Address')"
                                         oninput="setCustomValidity('')" required>
                                 </div>
                             </div>
@@ -176,63 +185,45 @@
                                 <div class="row row-space">
                                     <div class="col-2">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="username" minlength="4"
-                                                maxlength="12"
-                                                oninvalid="this.setCustomValidity('Please enter valid Username')"
-                                                oninput="setCustomValidity('')" required>
-                                            <label class="label--desc">Username</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="input-group-desc">
                                             <input class="input--style-5" type="password" name="password" minlength="4"
                                                 id="password" maxlength="12"
                                                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                                                 title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-                                                oninvalid="this.setCustomValidity('Please enter password')"
+                                                oninvalid="this.setCustomValidity('Please enter your Password')"
                                                 oninput="setCustomValidity('')" required>
                                             <label class="label--desc">Password</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="input-group">
+                                            <input class="input--style-5" type="password" name="confirm_password"
+                                                id="confirm_password"
+                                                oninvalid="this.setCustomValidity('Please confirm your Password')"
+                                                oninput="setCustomValidity('')" required>
+                                            <label class="label--desc">Confirm your
+                                                password again</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="name"></div>
-                            <div class="value">
-                                <div class="input-group">
-                                    <input class="input--style-5" type="password" name="confirm_password"
-                                        id="confirm_password"
-                                        oninvalid="this.setCustomValidity('Please confirm your Password')"
-                                        oninput="setCustomValidity('')" required>
-                                    <label class="label--desc">Confirm your password again</label>
+                        <div class="container-login100-form-btn">
+                            <div>
+                                <button class="btn btn--radius-2 btn--red" type="submit">Update details</button>
+                            </div>
+                            <br><br>
+                            <div class="container-login100-form-btn">
+                                <div>
+
+                                    <button class="button" type="submit"><a href="javascript:;"
+                                            onclick=goBack()>Cancel</a></button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="container-login100-form-btn">
-                            <div>
-                                <button class="btn btn--radius-2 btn--red" type="submit">Register</button>
-                            </div>
-                        </div>
-                        <div class="container-login100-form-btn">
-                            <div>
-                                <button class="button" type="submit"><a href="javascript:;"
-                                        onclick=reset()>Reset</a></button>
-                            </div>
-                        </div>
-                        <div class="container-login100-form-btn">
-                            <div>
-                                <button class="button" type="submit"><a href="javascript:;"
-                                        onclick=goBack()>Cancel</a></button>
-                            </div>
-                        </div>
-                        <br><br>
-                        <div class="container-login100-form-btn">
-                            <div class="text-center p-t-20">
-                                <a class="txt2" href="login.html">
-                                    Move to Login page
-                                    <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-                                </a>
+                            <div class="container-login100-form-btn">
+                                <div>
+                                    <button class="button" type="submit"><a href="javascript:;"
+                                            onclick=reset()>Reset</a></button>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -241,21 +232,6 @@
         </div>
     </div>
 </body>
-<script>
-    //reset page
-    function reset() {
-        document.getElementById("form").reset();
-    }
-    //Go back to previous page
-    function goBack() {
-        window.history.back()
-    }
-</script>
-<!-- Country City JS https://geodata.solutions/?chronoform=listbuilder&event=submit https://dr5hn.github.io/countries-states-cities-database/ -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="//geodata.solutions/includes/countrystate.js"></script>
-<!-- toast message popup notification js from online -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <!--Confirm Password JS function-->
 <script>
     // Function to check Whether both passwords
@@ -280,6 +256,21 @@
         }
     }
 </script>
+<script>
+    //to get the user name once routed to edit user page
+    document.getElementById("change").value = window.location.href.split("/").pop();
+    //reset page
+    function reset() {
+        document.getElementById("form").reset();
+    }
+
+    function goBack() {
+        window.history.back()
+    }
+</script>
+<!-- Country City JS https://geodata.solutions/?chronoform=listbuilder&event=submit https://dr5hn.github.io/countries-states-cities-database/ -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//geodata.solutions/includes/countrystate.js"></script>
 
 </html>
 <!-- end document-->
