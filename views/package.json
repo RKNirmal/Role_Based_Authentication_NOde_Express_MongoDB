@@ -1,5 +1,5 @@
 {
-    "name": "admin_panel",
+    "name": "star",
     "version": "1.0.0",
     "description": "",
     "main": "index.html",
@@ -14,8 +14,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "author": "",
-    "url": "",
+    "author": "bootstrapdash",
+    "url": "http://www.bootstrapdash.com/",
     "copyright": "",
     "license": ""
 }
