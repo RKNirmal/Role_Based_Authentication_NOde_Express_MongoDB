@@ -5,7 +5,7 @@ const user = require('./models/user')
 const enc = require('./enc/cypher')
 const mongo = require('mongodb').MongoClient
 const ObjectId = require('mongodb').ObjectId
-const { db } = require('./models/user')
+const product = require('./models/product')
 
 //homepage
 router.get('/', function (req, res) {
@@ -34,11 +34,11 @@ router.post('/register', async (req, res) => {
   // Check if this user already exisits
   mongo.connect(process.env.DB_CONNECTION, function (err, db) {
     if (err) throw err
-    var dataBase = db.db('nkdatabase')
-    var collection = dataBase.collection('accounts')
+    let dataBase = db.db('nkdatabase')
+    let collection = dataBase.collection('accounts')
     //getting detail of requesting usern name
-    var candidateName = req.body.username
-    var findName = {}
+    let candidateName = req.body.username
+    let findName = {}
     findName.username = candidateName
     // does user exist is found by below function
     collection.findOne(findName, function (err, doc) {
@@ -52,8 +52,8 @@ router.post('/register', async (req, res) => {
               '<a href="/register">Sign up</a>'
           )
       } else {
-        // Get details of the user from register page in this variable of array
-        var userDetails = {
+        // Get details of the user from register page in this let userDetails array
+        let userDetails = {
           firstName: req.body.firstName, //first name
           lastName: req.body.lastName, //last name
           email: req.body.email, //email
@@ -88,11 +88,11 @@ router.post('/login', async (req, res) => {
   mongo.connect(process.env.DB_CONNECTION, function (err, db) {
     if (err) throw err //error handling
     //to get the database, username, collection details
-    var dataBase = db.db('nkdatabase')
-    var collection = dataBase.collection('accounts')
-    var candidateName = req.body.username
+    let dataBase = db.db('nkdatabase')
+    let collection = dataBase.collection('accounts')
+    let candidateName = req.body.username
     console.log(candidateName + ': requesting for logging in')
-    var findName = {}
+    let findName = {}
     findName.username = candidateName
     // this function handling whether user exist in the database or not
     collection.findOne(findName, function (err, doc) {
@@ -110,10 +110,10 @@ router.post('/login', async (req, res) => {
               user.find({ role: { $ne: 'admin' } }, function (err, users) {
                 if (err) throw err
                 // object of all the users
-                //var userDetails = users
+                //let userDetails = users
                 //route admin to admin page
                 //console.log(users)
-                var registeredUsers = users.length
+                let registeredUsers = users.length
                 res.render(__dirname + '/views/admin.html', {
                   users,
                   candidateName,
@@ -123,7 +123,26 @@ router.post('/login', async (req, res) => {
             } else {
               console.log('User account loggedin successfully')
               //route user to welcome page
-              res.render(__dirname + '/views/welcome.html', { candidateName })
+              mongo.connect(process.env.DB_CONNECTION, function (err, db) {
+                if (err) throw err
+                function renderResult (res, products) {
+                  res.render('welcome.html', { products }, function (
+                    err,
+                    result
+                  ) {
+                    if (!err) {
+                      res.end(result)
+                    } else {
+                      res.end('Oops ! An error occurred.')
+                      console.log(err)
+                    }
+                  })
+                }
+                product.find({}, function (err, products) {
+                  if (err) throw err
+                  renderResult(res, products)
+                })
+              })
             }
           } else {
             //error handling
@@ -152,8 +171,8 @@ router.delete('/user', async (req, res) => {
   mongo.connect(process.env.DB_CONNECTION, function (err, db) {
     if (err) throw err //error handling
     //to get the database, username, collection details
-    var dataBase = db.db('nkdatabase')
-    var collection = dataBase.collection('accounts')
+    let dataBase = db.db('nkdatabase')
+    let collection = dataBase.collection('accounts')
     console.log('\nrequest received for deleting this user id: ' + req.body._id)
     collection.deleteOne({ _id: new ObjectId(req.body._id) }, function (err) {
       if (err) {
@@ -170,8 +189,8 @@ router.post('/edit', (req, res) => {
   mongo.connect(process.env.DB_CONNECTION, function (err, db) {
     if (err) throw err //error handling
     //to get the database, username, collection details
-    var dataBase = db.db('nkdatabase')
-    var collection = dataBase.collection('accounts')
+    let dataBase = db.db('nkdatabase')
+    let collection = dataBase.collection('accounts')
     console.log(
       'Request received for modifying this user : ' +
         '"' +
@@ -203,11 +222,11 @@ router.post('/edit', (req, res) => {
         user.find({ role: { $ne: 'admin' } }, function (err, users) {
           if (err) throw err
           // object of all the users
-          //var userDetails = users
+          //let userDetails = users
           //route admin to admin page
           //console.log(users)
-          var registeredUsers = users.length
-          var candidateName = 'administrator'
+          let registeredUsers = users.length
+          let candidateName = 'administrator'
           res.render(__dirname + '/views/admin.html', {
             users,
             candidateName,
@@ -215,7 +234,6 @@ router.post('/edit', (req, res) => {
           })
         })
       })
-      .catch(() => {})
   })
 })
 
@@ -226,4 +244,5 @@ router.get('/logout', function (req, res) {
   res.redirect('/register')
 })
 */
+
 module.exports = router

@@ -16,7 +16,6 @@
         "express-session": "^1.17.2",
         "mongodb": "^4.1.2",
         "mongoose": "^5.8.10",
-        "node-sessionstorage": "^1.0.0",
         "nodemon": "^2.0.12"
     },
     "devDependencies": {
