@@ -5,6 +5,8 @@ const route = require('./routes.js')
 const mongoose = require('mongoose')
 const session = require('express-session')
 const productRoutes = require('./productRoutes.js')
+const cookieParser = require('cookie-parser')
+
 //////////////////////////////////////////////////////////////////////
 
 //Connect MongoDB and create database and collection and a admin account if not exist
@@ -24,7 +26,9 @@ mongoose.connect(process.env.CONNECT, {
 app.use(express.json())
 app.use(
   express.urlencoded({
-    extended: true
+    limit: '50mb',
+    extended: true,
+    parameterLimit: 50000
   })
 )
 //View engine initialization
@@ -67,6 +71,7 @@ app.use(function (req, res, next) {
 //initialize all routes as middleware
 app.use('/', route)
 app.use('/', productRoutes)
+app.use(cookieParser())
 
 // simple route
 //Initializing the route.js as middleware for the express application
@@ -75,7 +80,17 @@ app.use('/', () => {
     console.log("Middleware to run whenever the request comes to homepage '/' ");
 });
 */
-
+//error handling
+/*
+app.use((err, req, res, next) => {
+  if (!err) return next()
+  return res.status(400).json({
+    status: 400,
+    error: 'OOps! Bad request'
+  })
+  console.log(err)
+})
+*/
 // set port, listen for requests
 ////server to listen on specified port number:3000
 const PORT = process.env.PORT || 3000

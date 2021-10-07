@@ -6,7 +6,7 @@ const enc = require('./enc/cypher')
 const mongo = require('mongodb').MongoClient
 const ObjectId = require('mongodb').ObjectId
 const product = require('./models/product')
-
+const jwt = require('jsonwebtoken')
 //homepage
 router.get('/', function (req, res) {
   res.render(__dirname + '/views/home.html')
@@ -22,12 +22,79 @@ router.get('/login', function (req, res) {
   res.render(__dirname + '/views/login.html')
 })
 
-/*
-router.get("/home", isLoggedIn, function (req, res) {
-  res.locals.user = req.user;
-  res.render("home");
-});
-*/
+router.get('/admin', (req, res) => {
+  user.find({ role: { $ne: 'admin' } }, function (err, users) {
+    if (err) throw err
+    // object of all the users
+    //let userDetails = users
+    //route admin to admin page
+    //console.log(users)
+    let candidateName = 'Administrator'
+    let registeredUsers = users.length
+    res.render(__dirname + '/views/admin.html', {
+      users,
+      candidateName,
+      registeredUsers
+    })
+  })
+})
+
+router.get('/welcome', (req, res) => {
+  const token = jwt.sign(
+    {
+      username: req.body.username,
+      password: req.body.password
+    },
+    process.env.PASSWD,
+    {
+      //expiresIn: '1d'
+    }
+  )
+  mongo.connect(process.env.DB_CONNECTION, function (err, db) {
+    if (err) throw err
+    function renderResult (res, products) {
+      res.cookie('userJWT', token, {
+        httpOnly: true,
+        sameSite: true,
+        maxAge: 1000 * 60 * 15
+      })
+      res.render('welcome.html', { products }, function (err, result) {
+        if (!err) {
+          res.end(result)
+        } else {
+          res.end('Oops ! An error occurred.')
+          console.log(err)
+        }
+      })
+    }
+    product.find({}, function (err, products) {
+      if (err) throw err
+      renderResult(res, products)
+    })
+  })
+})
+
+router.get('/admin', (req, res) => {
+  //listing all the user in the admin page
+  user.find({ role: { $ne: 'admin' } }, function (err, users) {
+    if (err) throw err
+    // object of all the users
+    //let userDetails = users
+    //route admin to admin page
+    //console.log(users)
+    let registeredUsers = users.length
+    res.cookie('adminJWT', token, {
+      httpOnly: true,
+      sameSite: true,
+      maxAge: 1000 * 60 * 15
+    })
+    res.render(__dirname + '/views/admin.html', {
+      users,
+      candidateName,
+      registeredUsers
+    })
+  })
+})
 
 // Handling user signup
 router.post('/register', async (req, res) => {
@@ -66,6 +133,7 @@ router.post('/register', async (req, res) => {
           password: enc.encrypt(req.body.password), //encrypting the password
           role: 'user'
         }
+
         // Insert the new user if not exist in database by fetching details from register page
         user.create(userDetails, function (e) {
           if (e) {
@@ -84,7 +152,7 @@ router.post('/register', async (req, res) => {
 })
 
 //Handling user login
-router.post('/login', async (req, res) => {
+router.post('/welcome', async (req, res) => {
   mongo.connect(process.env.DB_CONNECTION, function (err, db) {
     if (err) throw err //error handling
     //to get the database, username, collection details
@@ -103,46 +171,27 @@ router.post('/login', async (req, res) => {
         if (doc) {
           //comparing the password entered by the user and the decrypted password retrieved from database
           if (enc.decrypt(doc.password) === req.body.password) {
+            //JWT token creation
+            const token = jwt.sign(
+              {
+                username: req.body.username,
+                password: req.body.password
+              },
+              process.env.PASSWD,
+              {
+                //expiresIn: '1d'
+              }
+            )
+            console.log('account signed with token: ' + token)
+
             //role based routing
             if (doc.role === 'admin') {
               console.log('Admin User logged in successfully')
-              //listing all the user in the admin page
-              user.find({ role: { $ne: 'admin' } }, function (err, users) {
-                if (err) throw err
-                // object of all the users
-                //let userDetails = users
-                //route admin to admin page
-                //console.log(users)
-                let registeredUsers = users.length
-                res.render(__dirname + '/views/admin.html', {
-                  users,
-                  candidateName,
-                  registeredUsers
-                })
-              })
+              res.redirect('/admin')
             } else {
               console.log('User account loggedin successfully')
               //route user to welcome page
-              mongo.connect(process.env.DB_CONNECTION, function (err, db) {
-                if (err) throw err
-                function renderResult (res, products) {
-                  res.render('welcome.html', { products }, function (
-                    err,
-                    result
-                  ) {
-                    if (!err) {
-                      res.end(result)
-                    } else {
-                      res.end('Oops ! An error occurred.')
-                      console.log(err)
-                    }
-                  })
-                }
-                product.find({}, function (err, products) {
-                  if (err) throw err
-                  renderResult(res, products)
-                })
-              })
+              res.redirect('/welcome')
             }
           } else {
             //error handling
