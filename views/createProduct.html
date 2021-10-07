@@ -5,237 +5,49 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Welcome</title>
+    <title>Product Management</title>
+    <!--stylesheets starts-->
     <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/store.css">
-    <!--logout dropout style-->
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" href="css/uiCreateProduct.css">
     <style>
-        ul {
-            padding: 0;
-            list-style: none;
-        }
-
-        ul li {
-            display: inline-block;
-            position: relative;
-            line-height: 21px;
-            /*text-align: right;*/
-        }
-
-        ul li a {
-            display: block;
-            padding: 8px 25px;
-            color: #333;
-            text-decoration: none;
-        }
-
-        ul li ul.dropdown {
-            min-width: 125px;
-            /* Set width of the dropdown */
-            background: #f2f2f2;
-            display: none;
-            position: absolute;
-            z-index: 999;
-            left: 0;
-        }
-
-        ul li:hover ul.dropdown {
-            display: block;
-            /* Display the dropdown */
-        }
-
-        ul li ul.dropdown li {
-            display: block;
-        }
-
-        .navbar ul.navbar-nav li {
-            margin-right: 30px;
+        .filepond--item {
+            width: 140px;
+            height: 200px;
         }
     </style>
-    <!--cart style-->
-    <style>
-        .header {
-            background: rgb(0, 178, 255);
-            color: #fff;
-        }
+    <!--stylesheets ends-->
 
-        #lblCartCount {
-            font-size: 12px;
-            background: #ff0000;
-            color: #fff;
-            padding: 0 5px;
-            vertical-align: top;
-            margin-left: -10px;
-        }
-
-        .badge {
-            padding-left: 9px;
-            padding-right: 9px;
-            -webkit-border-radius: 9px;
-            -moz-border-radius: 9px;
-            border-radius: 9px;
-        }
-
-        .label-warning[href],
-        .badge-warning[href] {
-            background-color: #c67605;
-        }
-    </style>
-    <!--Rupee sign script-->
-    <style>
-        .inr-sign::before {
-            content: "\20B9";
-        }
-    </style>
-    <!--style for listing the products from db-->
-    <style>
-        * {
-            box-sizing: border-box;
-            -moz-box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            min-height: 1000px;
-        }
-
-        #wrap {
-            width: 90%;
-            max-width: 1100px;
-            margin: 50px auto;
-        }
-
-        .columns_2 figure {
-            width: 49%;
-            margin-right: 1%;
-        }
-
-        .columns_2 figure:nth-child(2) {
-            margin-right: 0;
-        }
-
-        .columns_3 figure {
-            width: 32%;
-            margin-right: 1%;
-        }
-
-        .columns_3 figure:nth-child(3) {
-            margin-right: 0;
-        }
-
-        .columns_4 figure {
-            width: 24%;
-            margin-right: 1%;
-        }
-
-        .columns_4 figure:nth-child(4) {
-            margin-right: 0;
-        }
-
-        .columns_5 figure {
-            width: 19%;
-            margin-right: 1%;
-        }
-
-        .columns_5 figure:nth-child(5) {
-            margin-right: 0;
-        }
-
-        #columns figure:hover {
-            -webkit-transform: scale(1.1);
-            -moz-transform: scale(1.1);
-            transform: scale(1.1);
-
-        }
-
-        #columns:hover figure:not(:hover) {
-            opacity: 0.4;
-        }
-
-        div#columns figure {
-            display: inline-block;
-            background: #FEFEFE;
-            border: 2px solid #FAFAFA;
-            box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
-            margin: 0 0px 15px;
-            -webkit-column-break-inside: avoid;
-            -moz-column-break-inside: avoid;
-            padding: 15px;
-            padding-bottom: 5px;
-            background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
-            opacity: 1;
-            -webkit-transition: all .3s ease;
-            -moz-transition: all .3s ease;
-            -o-transition: all .3s ease;
-            transition: all .3s ease;
-        }
-
-        div#columns figure img {
-            width: 100%;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 15px;
-            margin-bottom: 5px;
-        }
-
-        div#columns figure figcaption {
-            font-size: .9rem;
-            color: #444;
-            line-height: 1.5;
-            height: 60px;
-            font-weight: 600;
-            text-overflow: ellipsis;
-        }
-
-        a.button {
-            padding: 10px;
-            background: salmon;
-            margin: 10px;
-            display: block;
-            text-align: center;
-            color: #fff;
-            transition: all 1s linear;
-            text-decoration: none;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-            border-radius: 3px;
-            border-bottom: 3px solid #ff6536;
-            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
-        a.button:hover {
-            background: #ff6536;
-            border-bottom: 3px solid salmon;
-            color: #f1f2f3;
-        }
-
-        @media screen and (max-width: 960px) {
-            #columns figure {
-                width: 24%;
-            }
-        }
-
-        @media screen and (max-width: 767px) {
-            #columns figure {
-                width: 32%;
-            }
-        }
-
-        @media screen and (max-width: 600px) {
-            #columns figure {
-                width: 49%;
-            }
-        }
-
-        @media screen and (max-width: 500px) {
-            #columns figure {
-                width: 100%;
-            }
-        }
-    </style>
+    <!-- JAVASCRIPT starts-->
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            FilePond.registerPlugin(
+                FilePondPluginImagePreview,
+                FilePondPluginImageResize,
+                FilePondPluginFileEncode
+            );
+            FilePond.setOptions({
+                stylePanelAspectRatio: 150 / 100,
+                imageResizeTargetWidth: 100,
+                imageResizeTargetHeight: 150,
+            })
+            FilePond.parse(document.body);
+        });
+    </script>
+    <!-- JAVASCRIPT ends-->
 </head>
 
-<body class="" data-new-gr-c-s-check-loaded="8.884.0" data-gr-ext-installed="">
+<body class="body" data-new-gr-c-s-check-loaded="8.884.0" data-gr-ext-installed="">
     <div class="container-scroller ps ps--theme_default ps--active-y" data-ps-id="edc6cac5-1897-49f7-2d7e-013d13f13a8c">
         <!--Navbar-->
         <nav class="navbar bg-primary-gradient col-lg-12 col-12 p-0 fixed-top navbar-inverse d-flex flex-row">
@@ -272,10 +84,19 @@
                     </div>
                     <ul class="nav ps ps--theme_default" data-ps-id="ed30bf2e-9c2a-4d97-1d93-cda44d31f874">
                         <li class="nav-item active">
+                            <form action="/admin" method="GET">
+                                <a class="nav-link" href="admin">
+                                    <!-- <i class="fa fa-dashboard"></i> -->
+                                    <img src="images/icons/1.png" alt="">
+                                    <span class="menu-title">Dashboard</span>
+                                </a>
+                            </form>
+                        </li>
+                        <li class="nav-item active">
                             <a class="nav-link" href="#">
                                 <!-- <i class="fa fa-dashboard"></i> -->
                                 <img src="images/icons/1.png" alt="">
-                                <span class="menu-title">Welcome</span>
+                                <span class="menu-title">Product Management</span>
                             </a>
                         </li>
                         <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;">
@@ -290,72 +111,63 @@
         </div>
         <!--sidebar ends-->
         <!--Create Product Starts-->
-        <div style="text-align:center">
-            <br><br>
-            <form action="/createProduct" method="POST">
-                <h1 class="uk-text-center">Product Details</h1>
-                <hr />
-                <br>
-                <div class="form-group">
-                    <label>
-                        <h5>Name</h5>
-                    </label>
-                    <div class="form-controls">
-                        <input type="text" name="name" id="name" placeholder="Product name" required>
+        <br>
+        <br>
+        <div class="ui container">
+            <div class="ui">
+                <div class="heading">
+                    <h1>Create Product</h1>
+                </div>
+            </div>
+            <hr />
+            <form action="/create-product" method="POST" class="ui form">
+                <div class="ui three fields">
+                    <div class="field">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" required>
+                    </div>
+                    <div class="field">
+                        <label for="name">Price</label>
+                        <input type="text" name="price" id="price" required>
+                    </div>
+                    <div class="field">
+                        <label for="type">Category</label>
+                        <select id="category" name="category">
+                            <option value="fruit">Fruit</option>
+                            <option value="vegetable">Vegetable</option>
+                        </select>
                     </div>
                 </div>
-                <br>
-                <div class="form-group">
-                    <label>
-                        <h5>Price</h5>
-                    </label>
-                    <div class="form-controls">
-                        <input name="price" id="price" type="text" placeholder="Product price" required>
-                    </div>
-                </div>
-                <br>
-                <div class="columns medium-4">
-                    <label>
-                        <h5>Category</h5>
-                    </label>
-                    <br>
-                    <select id="category" name="category" data-filter-group="category">
-                        <option value="" selected="selected">Select Category</option>
-                        <option value="fruit">Fruit</li>
-                        <option value="vegetable">Vegetable</li>
-                    </select>
-                </div>
-                <br>
-                <div class="form-group">
-                    <label>
-                        <h5>Description</h5>
-                    </label>
-                    <div class="form-controls">
+                <div class="ui">
+                    <div class="field">
+                        <label for="name">Description</label>
                         <textarea name="description" id="description" required></textarea>
                     </div>
                 </div>
-                <br>
-                <div class="form-group">
-                    <label>Upload Image for the product</label><br>
-                    <input type="file" id="image" name="productImage" value="">
+                <!-- Image -->
+                <div class="ui">
+                    <div class="field">
+                        <label for="img">Image</label>
+                        <input type="file" name="img" id="img" class="filepond filepond--item" required>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <button type="submit" onClick=reload()>Submit</button>
-                </div>
+                <br><br>
+                <button class="ui fluid blue button" type="submit">Save Product</button>
             </form>
         </div>
         <!--Create Product Ends-->
         <br><br>
+
         <!--List Product Starts-->
-        <section class="container content-section">
-            <h1>Product list</h1>
+        <section class="container content-section" style="align-items: center;">
+            <h1>Products</h1>
             <hr />
             <div id="wrap">
                 <div id="columns" class="columns_4">
-                    <% if( products ) { %>
+                    <% if( products.length > 0 ) { %>
                     <%products.forEach( function( products ){ %>
                     <figure>
-                        <img src="images/basket.jpg">
+                        <img src="<%= products.coverImage %>" width="150" height="150">
                         <figcaption><%= products.productName %>
                             <br>
                             <%= products.productDesc %></figcaption>
@@ -363,7 +175,11 @@
                         <a class="button" href="#">Edit</a>
                         <a class="button" href="#">Delete</a>
                     </figure>
-                    <% })} %>
+                    <% })} else { %>
+                    <p>
+                        <h4>No record found on database</h4>
+                    </p>
+                    <% } %>
                 </div>
             </div>
         </section>
